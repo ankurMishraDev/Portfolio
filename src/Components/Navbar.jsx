@@ -1,38 +1,44 @@
-import React, { useState } from 'react';
-import { motion } from 'framer-motion'; 
-function Nav(){
-    return(
-        <ul className='nav-ul flex items-center gap-3'>
-            <li className='nav-ul  text-neutral-300 hover:text-white'><a href="#home" className='nav-link'>Home</a></li>
-            <li className='nav-ul  text-neutral-300 hover:text-white'><a href="#about" className='nav-link'>About</a></li>
-            <li className='nav-ul  text-neutral-300 hover:text-white'><a href="#work" className='nav-link'>Work</a></li>
-            <li className='nav-ul  text-neutral-300 hover:text-white'><a href="#contact" className='nav-link'>Contact</a></li>
-        </ul>
-    )
-}
+
+import React, { useRef } from 'react'
+import { socials } from '../constants/social';
+
 const Navbar = () => {
-    const [open, setOpen] = useState(false);
+  const navRef = useRef(null);
+  const linkReference = useRef([]);
+  const contactReference = useRef(null);
   return (
-    <div className='fixed inset-x-0 z-20 w-full backdrop-blur-lg bg-primary/50'>
-      <div className="mx-auto c-space max-w-7xl">
-        <div className="flex items-center justify-between py-2 sm:py-0">
-            <a href="/" className="text-xl font-bold transition-colors text-neutral-300 hover:text-white">Greninja</a>
-            <button onClick={()=> setOpen(!open)} className='flex cursor-pointer text-neutral-300 hover:text-white focus:outline-none sm:hidden'>  
-                <img src={open? "/images/x.svg":"/images/menu.svg"} alt="toggle" className='w-6 h-6' />
-            </button>
-            <nav className='hidden sm:flex'>
-                <Nav/>
-            </nav>
+    <>
+      <nav ref={navRef} className='fixed z-50 flex flex-col justify-between w-full h-full px-10 uppercase bg-black text-white/80 py-28 gap-y-10 md:w-1/2 md:left-1/2'>
+      <div className="flex flex-col text-5xl gap-y-2 md:text-6xl lg:text-6xl">
+        {["home", "service", "techStack", "about", "work", "contact" ].map((section, index) => (
+          <div key={index} ref={(element)=>(linkReference.current[index] = element)}>
+            <a href="" className='transition-all duration-300 cursor-pointer hover:text-white'>
+              {section}
+            </a>
+          </div>
+        ))}
+      </div>
+      <div ref={contactReference} className="flex flex-col flex-wrap justify-between gap-8 md:flex-row">
+        <div className="font-light">
+          <p className='tracking-wide text-white/60'>E-mail</p>
+          <p className='text-xl tracking-widest lowercase text-pretty'>
+            greninja@outlook.com
+          </p>
+        </div>
+        <div className="font-light">
+          <p className='tracking-wide text-white/50'>Connect On</p>
+          <div className="flex flex-col flex-wrap md:flex-row gap-x-2">
+            {socials.map((connect, index)=>(
+              <a key={index} href={connect.href} className='text-sm loading-loose tracking-wide hover:text-white cursor-pointer transition-colors duration-300'>
+                {connect.name}
+              </a>
+            ))}
+          </div>
         </div>
       </div>
-      {open &&(
-      <motion.div className="block overflow-hidden text-center sm:hidden" initial={{opacity:0, x:-10}} animate={{opacity:1, x:0}} style={{maxHeight: "100vh"}} transition={{duration: 1}}>
-        <nav className='pb-5'>
-            <Nav/>
-        </nav>
-      </motion.div>
-      )}
-    </div>
+      </nav>
+      
+    </>
   )
 }
 

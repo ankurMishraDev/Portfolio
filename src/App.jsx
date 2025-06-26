@@ -4,7 +4,7 @@ import Navbar from './Components/Navbar'
 
 const App = () => {
   return (
-    <div className='container'>
+    <div className='relative w-screen min-h-screen overflow-x-auto'>
       <Navbar />
     </div>
   )
