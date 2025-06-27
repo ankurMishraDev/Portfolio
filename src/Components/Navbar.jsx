@@ -106,7 +106,7 @@ const Navbar = () => {
         </div>
       </div>
       </nav>
-      <div onClick={handleMenu} style={showMenuIcon? {clipPath:"circle(50% at 50% 50%)"}: {clipPath:"circle(0% at 50% 50%)"}} className="fixed z-50 flex flex-col items-center justify-center gap-1 transition-all duration-300 bg-black rounded-full cursor-pointer w-10 h-10 md:w-20 md:h-20 top-4 right-10">
+      <div onClick={handleMenu} style={showMenuIcon? {clipPath:"circle(50% at 50% 50%)"}: {clipPath:"circle(0% at 50% 50%)"}} className="fixed z-50 flex flex-col items-center justify-center gap-1 transition-all duration-300 bg-black rounded-full cursor-pointer w-8 h-8 md:w-12 md:h-12 top-4 right-10">
         <span ref={upLineRef} className='block w-8 h-0.5 bg-white rounded-full origin-center'></span>
         <span ref={downLineRef} className='block w-8 h-0.5 bg-white rounded-full origin-center'></span>
       </div>
