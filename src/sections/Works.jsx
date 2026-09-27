@@ -93,8 +93,32 @@ const Works = () => {
 
   const handleMouseMove = (e) => {
     if (window.innerWidth < 768) return;
-    mouse.current.x = e.clientX + 24;
-    mouse.current.y = e.clientY + 24;
+    
+    const previewWidth = 500; // preview image width
+    const previewHeight = 400; // approximate preview height
+    const padding = 10; // padding from screen edges
+    
+    let x = e.clientX + 4;
+    let y = e.clientY + 4;
+    
+    // Constrain X position
+    if (x + previewWidth > window.innerWidth - padding) {
+      x = e.clientX - previewWidth - 24;
+    }
+    if (x < padding) {
+      x = padding;
+    }
+    
+    // Constrain Y position
+    if (y + previewHeight > window.innerHeight - padding) {
+      y = e.clientY - previewHeight - 24;
+    }
+    if (y < padding) {
+      y = padding;
+    }
+    
+    mouse.current.x = x;
+    mouse.current.y = y;
     moveX.current(mouse.current.x);
     moveY.current(mouse.current.y);
   };
@@ -166,7 +190,7 @@ const Works = () => {
         {/* desktop Flaoting preview image */}
         <div
           ref={previewRef}
-          className="fixed -top-2/6 left-0 z-50 overflow-hidden border-8 border-black pointer-events-none w-[960px] md:block hidden opacity-0"
+          className="fixed top-0 left-0 z-50 overflow-hidden border-4 border-black pointer-events-none w-[400px] md:block hidden opacity-0 rounded-lg shadow-2xl"
         >
           {currentIndex !== null && (
             <img
